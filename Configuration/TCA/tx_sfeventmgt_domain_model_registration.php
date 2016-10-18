@@ -30,7 +30,7 @@ return [
         'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('sf_event_mgt') . 'Resources/Public/Icons/tx_sfeventmgt_domain_model_registration_unconfirmed.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, firstname, lastname, title, company, address, zip, city, country, phone, email, ignore_notifications, gender, date_of_birth, fe_user, accepttc, confirmed, paymentmethod, payment_reference, paid, notes, confirmation_until, amount_of_registrations, main_registration, waitlist',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, firstname, lastname, title, company, address, zip, city, country, phone, email, ignore_notifications, gender, date_of_birth, fe_user, accepttc, confirmed, paymentmethod, payment_reference, paid, notes, confirmation_until, amount_of_registrations, main_registration, waitlist, total_price',
     ],
     'types' => [
         '1' => [
@@ -39,6 +39,9 @@ return [
             ignore_notifications, gender, date_of_birth, fe_user, confirmation_until, confirmed,
             accepttc, notes, amount_of_registrations, waitlist, main_registration, 
             
+            --div--;LLL:EXT:sf_event_mgt/Resources/Private/Language/locallang_db.xlf:registration.tabs.price,
+                total_price,
+
             --div--;LLL:EXT:sf_event_mgt/Resources/Private/Language/locallang_db.xlf:event.tabs.payment,
                 paid, paymentmethod, payment_reference, 
                 
@@ -336,6 +339,15 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
+            ]
+        ],
+        'total_price' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:sf_event_mgt/Resources/Private/Language/locallang_db.xlf:tx_sfeventmgt_domain_model_registration.total_price',
+            'config' => [
+                'type' => 'input',
+                'size' => 5,
+                'eval' => 'double2'
             ]
         ],
         'notes' => [

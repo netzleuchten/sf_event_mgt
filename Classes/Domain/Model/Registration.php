@@ -137,6 +137,13 @@ class Registration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $paid = false;
 
     /**
+     * Total price
+     *
+     * @var float
+     */
+    protected $totalPrice = 0.0;
+
+    /**
      * Notes
      *
      * @var string
@@ -858,5 +865,26 @@ class Registration extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setWaitlist($waitlist)
     {
         $this->waitlist = $waitlist;
+    }
+
+    /**
+     * Returns the total price
+     *
+     * @return float
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
+    }
+
+    /**
+     * Sets the total price
+     *
+     * @param float $totalPrice
+     * @return void
+     */
+    public function setTotalPrice($totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
     }
 }

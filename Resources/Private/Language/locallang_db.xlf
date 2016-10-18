@@ -189,8 +189,14 @@
 			<trans-unit id="tx_sfeventmgt_domain_model_registration.paid">
 				<source>Paid</source>
 			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registration.total_price">
+				<source>Total price</source>
+			</trans-unit>
 			<trans-unit id="tx_sfeventmgt_domain_model_registration.notes">
 				<source>Notes</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registration.fe_user">
+				<source>Frontend user</source>
 			</trans-unit>
 			<trans-unit id="tx_sfeventmgt_domain_model_registration.amountOfRegistrations">
 				<source>Amount of registrations (if user created multiple registrations at the same time)</source>
@@ -215,6 +221,9 @@
 			</trans-unit>
 			<trans-unit id="event.tabs.payment">
 				<source>Payment</source>
+			</trans-unit>
+			<trans-unit id="registration.tabs.price">
+				<source>Price</source>
 			</trans-unit>
 			<trans-unit id="event.sections.notification">
 				<source>When a registration is created,confirmed or cancelled, send a notification e-mail to:</source>

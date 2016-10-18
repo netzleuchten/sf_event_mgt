@@ -226,6 +226,7 @@ CREATE TABLE tx_sfeventmgt_domain_model_registration (
 	recaptcha varchar(255) DEFAULT '' NOT NULL,
 	fe_user int(11) DEFAULT '0' NOT NULL,
 	paid tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	total_price double(11,2) DEFAULT '0.00' NOT NULL,
 	paymentmethod varchar(255) DEFAULT '' NOT NULL,
 	payment_reference varchar(255) DEFAULT '' NOT NULL,
 	waitlist tinyint(1) unsigned DEFAULT '0' NOT NULL,

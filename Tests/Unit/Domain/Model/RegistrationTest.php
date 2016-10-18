@@ -733,4 +733,30 @@ class RegistrationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->assertEquals('paid-1234567890', $this->subject->getPaymentReference());
     }
 
+    /**
+     * @test
+     * @return void
+     */
+    public function getTotalPriceReturnsInitialValueForFloat()
+    {
+        $this->assertSame(
+            0.0,
+            $this->subject->getTotalPrice()
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function setTotalPriceSetsTotalPrice()
+    {
+        $this->subject->setTotalPrice(12.99);
+
+        $this->assertAttributeEquals(
+            12.99,
+            'totalPrice',
+            $this->subject
+        );
+    }
 }
