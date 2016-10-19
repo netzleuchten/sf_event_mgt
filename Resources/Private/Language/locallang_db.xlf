@@ -204,9 +204,6 @@
 			<trans-unit id="event.tabs.additional">
 				<source>Additional</source>
 			</trans-unit>
-			<trans-unit id="event.tabs.category">
-				<source>Category</source>
-			</trans-unit>
 			<trans-unit id="event.tabs.relations">
 				<source>Relations</source>
 			</trans-unit>
