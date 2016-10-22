@@ -54,6 +54,9 @@
 			<trans-unit id="tx_sfeventmgt_domain_model_event.price_options">
 				<source>Price options</source>
 			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_event.registration_options">
+				<source>Registration options</source>
+			</trans-unit>
 			<trans-unit id="tx_sfeventmgt_domain_model_event.currency">
 				<source>Currency</source>
 			</trans-unit>
@@ -301,6 +304,57 @@
 				<source>Price</source>
 			</trans-unit>
 			<trans-unit id="tx_sfeventmgt_domain_model_priceoption.valid_until">
+				<source>Date until the price is valid (includes selected date)</source>
+			</trans-unit>
+			<trans-unit id="registrationoption.tabs.price">
+				<source>Price</source>
+			</trans-unit>
+			<trans-unit id="registrationoption.tabs.additional">
+				<source>Additional</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption">
+				<source>Registration option</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.link">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.price">
+				<source>Price</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.price_options">
+				<source>Price options</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.show_amount">
+				<source>Show amount select field</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.amount_label">
+				<source>Label for amount select field</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.amount_max">
+				<source>Max. value for amount select field (if value is less than 2, no select field will be shown)</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.show_amount_input">
+				<source>Show additional input field for amount field</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoption.amount_input_label">
+				<source>Label for additional input field</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoptionprice">
+				<source>Price option</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoptionprice.price">
+				<source>Price</source>
+			</trans-unit>
+			<trans-unit id="tx_sfeventmgt_domain_model_registrationoptionprice.valid_until">
 				<source>Date until the price is valid (includes selected date)</source>
 			</trans-unit>
 		</body>

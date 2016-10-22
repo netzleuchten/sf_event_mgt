@@ -63,6 +63,21 @@
                     <div class="clear"></div>
                 </div>
             </f:if>
+            <f:if condition="{event.registrationOptions}">
+                <div class="event-registration-row">
+                    <div class="event-list-label">
+                        <f:translate key="tx_sfeventmgt_domain_model_event.registration_options"/>
+                    </div>
+                    <div class="event-list-value event-registration-options">
+                        <ul>
+                            <f:for each="{event.registrationOptions}" as="registrationOption">
+                                <li>{registrationOption.title}: {registrationOption.currentPrice} {event.currency}</li>
+                            </f:for>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </f:if>
             <f:if condition="{event.location}">
                 <div class="event-registration-row">
                     <div class="event-list-label">

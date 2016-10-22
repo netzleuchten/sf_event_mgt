@@ -26,7 +26,7 @@ return [
         'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('sf_event_mgt') . 'Resources/Public/Icons/tx_sfeventmgt_domain_model_event.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, teaser, description, program, link, top_event, startdate, enddate, enable_registration, enable_waitlist, max_participants, max_registrations_per_user, registration_deadline, price, currency, category, related, image, files, youtube, additional_image, registration, location, organisator, notify_admin, notify_organisator, unique_email_check, enable_payment,price_options,registration_waitlist',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, teaser, description, program, link, top_event, startdate, enddate, enable_registration, enable_waitlist, max_participants, max_registrations_per_user, registration_deadline, price, currency, category, related, image, files, youtube, additional_image, registration, location, organisator, notify_admin, notify_organisator, unique_email_check, enable_payment,price_options,registration_waitlist, registration_options',
     ],
     'types' => [
         '1' => [
@@ -47,7 +47,7 @@ return [
 				enable_registration, registration_deadline, --palette--;LLL:EXT:sf_event_mgt/Resources/Private/Language/locallang_db.xlf:event.sections.cancellation;paletteCancellation, max_participants, max_registrations_per_user, enable_waitlist, unique_email_check, --palette--;LLL:EXT:sf_event_mgt/Resources/Private/Language/locallang_db.xlf:event.sections.notification;paletteNotification,
 
 			--div--;LLL:EXT:sf_event_mgt/Resources/Private/Language/locallang_db.xlf:event.tabs.registration_options,
-				
+				registration_options,
 
 			--div--;LLL:EXT:sf_event_mgt/Resources/Private/Language/locallang_db.xlf:event.tabs.registrations,
 				registration,registration_waitlist,
@@ -507,10 +507,10 @@ return [
                 'appearance' => [
                     'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
+                    'showSynchronizationLink' => 0,
                     'showPossibleLocalizationRecords' => 1,
                     'useSortable' => 1,
-                    'showAllLocalizationLink' => 1
+                    'showAllLocalizationLink' => 0
                 ],
             ],
         ],
@@ -529,10 +529,10 @@ return [
                 'appearance' => [
                     'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
+                    'showSynchronizationLink' => 0,
                     'showPossibleLocalizationRecords' => 1,
                     'useSortable' => 1,
-                    'showAllLocalizationLink' => 1
+                    'showAllLocalizationLink' => 0
                 ],
             ],
         ],
@@ -572,9 +572,29 @@ return [
                 'appearance' => [
                     'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
+                    'showSynchronizationLink' => 0,
                     'showPossibleLocalizationRecords' => 1,
                     'useSortable' => 0,
+                    'showAllLocalizationLink' => 0
+                ],
+            ],
+        ],
+        'registration_options' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:sf_event_mgt/Resources/Private/Language/locallang_db.xlf:tx_sfeventmgt_domain_model_event.registration_options',
+            'displayCond' => 'FIELD:enable_registration:REQ:TRUE',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_sfeventmgt_domain_model_registrationoption',
+                'foreign_field' => 'event',
+                'foreign_sortby' => 'sorting',
+                'maxitems' => 100,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'useSortable' => 1,
                     'showAllLocalizationLink' => 1
                 ],
             ],

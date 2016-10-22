@@ -19,9 +19,8 @@ namespace DERHANSEN\SfEventMgt\Domain\Model;
  *
  * @author Torben Hansen <derhansen@gmail.com>
  */
-class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Event extends AbstractModelWithPriceOption
 {
-
     /**
      * Title
      *
@@ -78,13 +77,6 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $maxRegistrationsPerUser = 1;
-
-    /**
-     * Price
-     *
-     * @var float
-     */
-    protected $price = 0.0;
 
     /**
      * Currency
@@ -272,10 +264,20 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $priceOptions = null;
 
     /**
+     * Registration options
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption>
+     * @cascade remove
+     * @lazy
+     */
+    protected $registrationOptions = null;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
+        parent::__construct();
         $this->category = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->related = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->registration = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -283,7 +285,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->image = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->files = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->additionalImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->priceOptions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->registrationOptions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -438,28 +440,6 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setMaxParticipants($participants)
     {
         $this->maxParticipants = $participants;
-    }
-
-    /**
-     * Returns the price
-     *
-     * @return float $price
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Sets the price
-     *
-     * @param float $price Price
-     *
-     * @return void
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
     }
 
     /**
@@ -1210,27 +1190,6 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns price options
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-     */
-    public function getPriceOptions()
-    {
-        return $this->priceOptions;
-    }
-
-    /**
-     * Sets price options
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $priceOptions
-     * @return void
-     */
-    public function setPriceOptions($priceOptions)
-    {
-        $this->priceOptions = $priceOptions;
-    }
-
-    /**
      * Adds a price option
      *
      * @param \DERHANSEN\SfEventMgt\Domain\Model\PriceOption $priceOption Price option
@@ -1243,7 +1202,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Removes a Registration
+     * Removes a price option
      *
      * @param \DERHANSEN\SfEventMgt\Domain\Model\PriceOption $priceOption Price option
      *
@@ -1252,43 +1211,6 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function removePriceOptions(\DERHANSEN\SfEventMgt\Domain\Model\PriceOption $priceOption)
     {
         $this->priceOptions->detach($priceOption);
-    }
-
-    /**
-     * Returns all active price options sorted by date ASC
-     *
-     * @return array
-     */
-    public function getActivePriceOptions()
-    {
-        $activePriceOptions = [];
-        if ($this->getPriceOptions()) {
-            $compareDate = new \DateTime('today midnight');
-            foreach ($this->getPriceOptions() as $priceOption) {
-                if ($priceOption->getValidUntil() >= $compareDate) {
-                    $activePriceOptions[$priceOption->getValidUntil()->getTimestamp()] = $priceOption;
-                }
-            }
-        }
-        ksort($activePriceOptions);
-        return $activePriceOptions;
-    }
-
-    /**
-     * Returns the current price of the event respecting possible price options
-     *
-     * @return float
-     */
-    public function getCurrentPrice()
-    {
-        $activePriceOptions = $this->getActivePriceOptions();
-        if (count($activePriceOptions) >= 1) {
-            // Sort active price options and return first element
-            return reset($activePriceOptions)->getPrice();
-        } else {
-            // Just return the price field
-            return $this->price;
-        }
     }
 
     /**
@@ -1345,5 +1267,50 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getCancellationPossible()
     {
         return $this->getEnableCancel() && $this->getCancelDeadline() > new \DateTime();
+    }
+
+    /**
+     * Returns registration options
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getRegistrationOptions()
+    {
+        return $this->registrationOptions;
+    }
+
+    /**
+     * Sets registration options
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $registrationOptions
+     * @return void
+     */
+    public function setRegistrationOptions($registrationOptions)
+    {
+        $this->registrationOptions = $registrationOptions;
+    }
+
+    /**
+     * Adds a registration option
+     *
+     * @param \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption $registrationOption Registration option
+     *
+     * @return void
+     */
+    public function addRegistrationOptions(\DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption $registrationOption)
+    {
+        $this->registrationOptions->attach($registrationOption);
+    }
+
+    /**
+     * Removes a Registration option
+     *
+     * @param \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption $registrationOption Registration option
+     *
+     * @return void
+     */
+    public function removeRegistrationOptions(\DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption $registrationOption)
+    {
+        $this->registrationOptions->detach($registrationOption);
     }
 }

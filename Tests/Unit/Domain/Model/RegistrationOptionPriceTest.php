@@ -16,16 +16,16 @@ namespace DERHANSEN\SfEventMgt\Tests\Unit\Domain\Model;
  */
 
 /**
- * Test case for class \DERHANSEN\SfEventMgt\Domain\Model\PriceOption.
+ * Test case for class \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOptionPrice
  *
  * @author Torben Hansen <derhansen@gmail.com>
  */
-class PriceOptionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class RegistrationOptionPriceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * Location object
+     * RegistrationOptionPrice object
      *
-     * @var \DERHANSEN\SfEventMgt\Domain\Model\PriceOption
+     * @var \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOptionPrice
      */
     protected $subject = null;
 
@@ -36,7 +36,7 @@ class PriceOptionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     protected function setUp()
     {
-        $this->subject = new \DERHANSEN\SfEventMgt\Domain\Model\PriceOption();
+        $this->subject = new \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOptionPrice();
     }
 
     /**
@@ -50,24 +50,26 @@ class PriceOptionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     }
 
     /**
-     * Test if event returns intitial value
+     * Test if registrationOption returns intitial value
      *
      * @test
      * @return void
      */
-    public function getEventReturnsInitialValue()
+    public function getRegistrationOptionReturnsInitialValue()
     {
-        $this->assertNull($this->subject->getEvent());
+        $this->assertNull($this->subject->getRegistrationOption());
     }
 
     /**
+     * Test if registrationOption can be set
+     *
      * @test
      * @return void
      */
-    public function setEventForEventSetsEvent()
+    public function setRegistrationOptionForEventSetsRegistrationOption()
     {
-        $event = new \DERHANSEN\SfEventMgt\Domain\Model\Event();
-        $this->subject->setEvent($event);
-        $this->assertEquals($event, $this->subject->getEvent());
+        $registrationOption = new \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption();
+        $this->subject->setRegistrationOption($registrationOption);
+        $this->assertEquals($registrationOption, $this->subject->getRegistrationOption());
     }
 }

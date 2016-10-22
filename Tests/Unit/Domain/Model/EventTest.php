@@ -236,33 +236,6 @@ class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getPriceReturnsInitialValueForFloat()
-    {
-        $this->assertSame(
-            0.0,
-            $this->subject->getPrice()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setPriceForFloatSetsPrice()
-    {
-        $this->subject->setPrice(3.14159265);
-
-        $this->assertAttributeEquals(
-            3.14159265,
-            'price',
-            $this->subject,
-            '',
-            0.000000001
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getCurrencyReturnsInitialValueForString()
     {
         $this->assertSame(
@@ -1297,31 +1270,7 @@ class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      * @return void
      */
-    public function getPriceOptionsReturnsInitialValueforObjectStorage()
-    {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->assertEquals(
-            $newObjectStorage,
-            $this->subject->getPriceOptions()
-        );
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function setPriceOptionSetsPriceOptionForPriceOption()
-    {
-        $priceOption = new \DERHANSEN\SfEventMgt\Domain\Model\PriceOption();
-        $this->subject->setPriceOptions($priceOption);
-        $this->assertEquals($priceOption, $this->subject->getPriceOptions());
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function addPriceOptionAddsPriceOptionForPriceOption()
+    public function addPriceOptionsForObjectStorageAddsPriceOptions()
     {
         $priceOption = new \DERHANSEN\SfEventMgt\Domain\Model\PriceOption();
         $priceOptionObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', ['attach'],
@@ -1336,7 +1285,7 @@ class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      * @return void
      */
-    public function removePriceOptionRemovesPriceOptionForPriceOption()
+    public function removePriceOptionsForObjectStorageRemovesPriceOptions()
     {
         $priceOption = new \DERHANSEN\SfEventMgt\Domain\Model\PriceOption();
         $priceOptionObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', ['detach'],
@@ -1345,71 +1294,6 @@ class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'priceOptions', $priceOptionObjectStorageMock);
 
         $this->subject->removePriceOptions($priceOption);
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function getActivePriceOptionsReturnsOnlyActivePriceOptions()
-    {
-        $dateYesterday = new \DateTime('yesterday');
-        $dateToday = new \DateTime('today');
-        $dateTomorrow = new \DateTime('tomorrow');
-
-        $priceOption1 = new PriceOption();
-        $priceOption1->setPrice(10.00);
-        $priceOption1->setValidUntil($dateYesterday);
-
-        $priceOption2 = new PriceOption();
-        $priceOption2->setPrice(12.00);
-        $priceOption2->setValidUntil($dateToday);
-
-        $priceOption3 = new PriceOption();
-        $priceOption3->setPrice(14.00);
-        $priceOption3->setValidUntil($dateTomorrow);
-
-        $this->subject->addPriceOptions($priceOption1);
-        $this->subject->addPriceOptions($priceOption2);
-        $this->subject->addPriceOptions($priceOption3);
-
-        $expected = [];
-        $expected[$dateToday->getTimestamp()] = $priceOption2;
-        $expected[$dateTomorrow->getTimestamp()] = $priceOption3;
-
-        $this->assertEquals($expected, $this->subject->getActivePriceOptions());
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function getCurrentPriceReturnsPriceIfNoPriceOptionsSet()
-    {
-        $this->subject->setPrice(12.99);
-        $this->assertEquals(12.99, $this->subject->getCurrentPrice());
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function getCurrentPriceReturnsPriceOptionIfSet()
-    {
-        $this->subject->setPrice(19.99);
-
-        $priceOption1 = new PriceOption();
-        $priceOption1->setPrice(14.99);
-        $priceOption1->setValidUntil(new \DateTime('today'));
-
-        $priceOption2 = new PriceOption();
-        $priceOption2->setPrice(16.99);
-        $priceOption2->setValidUntil(new \DateTime('tomorrow'));
-
-        $this->subject->addPriceOptions($priceOption1);
-        $this->subject->addPriceOptions($priceOption2);
-
-        $this->assertEquals(14.99, $this->subject->getCurrentPrice());
     }
 
     /**
@@ -1501,6 +1385,60 @@ class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->subject->setEnableCancel($enabled);
         $this->subject->setCancelDeadline($deadline);
         $this->assertEquals($expected, $this->subject->getCancellationPossible());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function getRegistrationOptionsReturnsInitialValueforObjectStorage()
+    {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->assertEquals(
+            $newObjectStorage,
+            $this->subject->getRegistrationOptions()
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function setRegistrationOptionSetsRegistrationOption()
+    {
+        $registrationOption = new \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption();
+        $objectStorageWithOneRegistrationOption = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageWithOneRegistrationOption->attach($registrationOption);
+        $this->subject->setRegistrationOptions($objectStorageWithOneRegistrationOption);
+        $this->assertEquals($objectStorageWithOneRegistrationOption, $this->subject->getRegistrationOptions());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function addRegistrationOptionAddsRegistrationOption()
+    {
+        $registrationOption = new \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption();
+        $registrationOptionObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', ['attach'],
+            [], '', false);
+        $registrationOptionObjectStorageMock->expects($this->once())->method('attach')->with($this->equalTo($registrationOption));
+        $this->inject($this->subject, 'registrationOptions', $registrationOptionObjectStorageMock);
+        $this->subject->addRegistrationOptions($registrationOption);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function removeRegistrationOptionRemovesRegistrationOption()
+    {
+        $registrationOption = new \DERHANSEN\SfEventMgt\Domain\Model\RegistrationOption();
+        $registrationOptionObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', ['detach'],
+            [], '', false);
+        $registrationOptionObjectStorageMock->expects($this->once())->method('detach')->with($this->equalTo($registrationOption));
+        $this->inject($this->subject, 'registrationOptions', $registrationOptionObjectStorageMock);
+        $this->subject->removeRegistrationOptions($registrationOption);
     }
 
 }
