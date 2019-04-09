@@ -1,5 +1,5 @@
 {
-  "name": "derhansen/sf_event_mgt",
+  "name": "netzleuchten/sf_event_mgt",
   "type": "typo3-cms-extension",
   "description": "Configurable event management and registration extension based on ExtBase and Fluid",
   "homepage": "https://github.com/derhansen/sf_event_mgt",
