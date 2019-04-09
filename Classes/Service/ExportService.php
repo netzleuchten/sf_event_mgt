@@ -153,7 +153,11 @@ class ExportService
         $registrationFieldValues = [];
         /** @var Registration\FieldValue $fieldValue */
         foreach ($registration->getFieldValues() as $fieldValue) {
-            $registrationFieldValues[$fieldValue->getField()->getUid()] = $fieldValue->getValueForCsvExport();
+            if ($fieldValue->getField()) {
+                if ($fieldValue->getField()) {
+                    $registrationFieldValues[$fieldValue->getField()->getUid()] = $fieldValue->getValueForCsvExport();
+                }
+            }
         }
         foreach ($registrationFieldData as $fieldUid => $fieldTitle) {
             if (isset($registrationFieldValues[$fieldUid])) {
